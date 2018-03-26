@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link rel="stylesheet"
+          href="/milligram.min.css">
+  </head>
+
+  <body style="width: 400px; padding: 24px; user-select: none; margin: 0 auto;">
+    <div>
+      <h1>Pluslack</h1>
+    </div>
+
+    <div id="welcome"
+         style="display: none; margin-bottom: 2.5rem;">
+      <p style="margin-bottom: 0;">Welcome to Pluslack!</p>
+      <p style="margin-bottom: 0;">Please set the URL prefix of your JIRA web site.</p>
+    </div>
+
+    <form id="settings_form"
+          stlye="width: 100%">
+      <fieldset id="enable_jira_link_converter_field">
+        <input type="checkbox"
+               id="enable_jira_link_converter">
+        <label class="label-inline"
+               for="enable_jira_link_converter">
+          <strong>Enable JIRA Link Converter</strong>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <label for="url_prefix"
+               style="color: #666666; width: 100%;">
+          URL Prefix
+          <input type="text"
+                 name="url-prefix"
+                 id="url_prefix"
+                 stlye="border-radius: 3px; padding: 4px; width: 100%;"
+                 placeholder="For example https://jira.example.com/browse/">
+        </label>
+
+        <div id="url_prefix_warning"
+             style="display: none; color: #e65954;">
+          Please enter the URL prefix
+        </div>
+
+        <div>
+          <div class="float-right">
+            <button class="button"
+                    type="button"
+                    id="save_button">Save</button>
+          </div>
+        </div>
+      </fieldset>
+
+    </form>
+
+    <script src="/popup.js"></script>
+  </body>
+
+</html>
