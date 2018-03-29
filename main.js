@@ -5,8 +5,15 @@ let urlPrefixCache = ''
 function restoreConvertedLinks() {
   const pluslackeds = document.querySelectorAll('span[data-pluslack="converted"]')
   for (item of pluslackeds) {
-    item.innerHTML = item.dataset.pluslackOriginal
+    item.outerHTML = item.dataset.pluslackOriginal
   }
+}
+
+function htmlToElement(html) {
+  const template = document.createElement('template')
+  html = html.trim() // Never return a text node of whitespace as the result
+  template.innerHTML = html
+  return template.content.firstChild
 }
 
 function main() {
@@ -39,14 +46,24 @@ function main() {
     }
 
     // compose regex
-    const rule = new RegExp(`( |\\b|^)(?<!${data.url_prefix}|data-pluslack-original=")[a-zA-Z]+-\\d+(?!-)\\b`, 'g')
+    const rule = new RegExp(`(?<!https:\\/\\/jira.grab.com\\/browse\\/|data-pluslack-original=")[a-zA-Z]+-\\d+\\b`, 'g')
+    console.log(rule)
 
     // match and modify
     const messages = document.querySelectorAll('.c-message__body, .message_body')
 
     for (message of messages) {
-      let matched = message.innerText || message.textContent
+      let matched = message.innerHTML
+
+      if (~matched.indexOf(`data-pluslack="converted"`)) {
+        console.log('no after')
+        continue
+      }
+
+      console.log('before', matched)
       matched = matched.replace(/<[^>]*>/g, '')
+      console.log('after', matched)
+
       matched = matched.match(rule)
 
       if (matched) {
